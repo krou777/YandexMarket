@@ -1,4 +1,27 @@
 -------------------------------------------------------------------------------
 Test set: MainPageTests.SearchTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.838 s -- in MainPageTests.SearchTests
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.357 s <<< FAILURE! -- in MainPageTests.SearchTests
+MainPageTests.SearchTests.executeSearch -- Time elapsed: 1.097 s <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Response code 500. Message: create container: Error response from daemon: No such image: selenoid/chrome127.0:latest 
+Host info: host: 'DESKTOP-M0SN4U7', ip: '172.19.192.1'
+Build info: version: '4.11.0', revision: '040bc5406b'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '19.0.2'
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {browserName: chrome, browserVersion: 127.0, goog:chromeOptions: {args: [--remote-allow-origins=*], extensions: []}, selenoid:options: {enableVideo: true, env: [TZ=UTC], labels: {manual: true}, name: Test badge..., sessionTimeout: 15m}}]}]
+Capabilities {browserName: chrome, browserVersion: 127.0, goog:chromeOptions: {args: [--remote-allow-origins=*], extensions: []}, selenoid:options: {enableVideo: true, env: [TZ=UTC], labels: {manual: true}, name: Test badge..., sessionTimeout: 15m}}
+	at org.openqa.selenium.remote.ProtocolHandshake.createSession(ProtocolHandshake.java:140)
+	at org.openqa.selenium.remote.ProtocolHandshake.createSession(ProtocolHandshake.java:96)
+	at org.openqa.selenium.remote.ProtocolHandshake.createSession(ProtocolHandshake.java:68)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:163)
+	at org.openqa.selenium.remote.TracedCommandExecutor.execute(TracedCommandExecutor.java:51)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:518)
+	at org.openqa.selenium.remote.RemoteWebDriver.startSession(RemoteWebDriver.java:232)
+	at org.openqa.selenium.remote.RemoteWebDriver.<init>(RemoteWebDriver.java:159)
+	at org.openqa.selenium.remote.RemoteWebDriver.<init>(RemoteWebDriver.java:139)
+	at MainPageTests.SearchTests.siteLogin(SearchTests.java:54)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

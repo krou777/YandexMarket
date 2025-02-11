@@ -5,6 +5,7 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -26,14 +27,17 @@ public class SearchTests {
     @BeforeEach
     public void siteLogin() {
 
-        FirefoxOptions options = new FirefoxOptions();
-        options.setCapability("browserVersion", "124.0");
+
+
+
+        ChromeOptions options = new ChromeOptions();
+        options.setCapability("browserVersion", "117.0");
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
             /* How to add test badge */
             put("name", "Test badge...");
 
             /* How to set session timeout */
-            put("sessionTimeout", "1m");
+            put("sessionTimeout", "15m");
 
             /* How to set timezone */
             put("env", new ArrayList<String>() {{
@@ -42,12 +46,11 @@ public class SearchTests {
 
             /* How to add "trash" button */
             put("labels", new HashMap<String, Object>() {{
-                put("manual", "true");
+                // put("manual", "true");
             }});
 
             /* How to enable video recording */
             put("enableVideo", true);
-
             put("enableVNC", true);
         }});
         try {
@@ -56,6 +59,10 @@ public class SearchTests {
             throw new RuntimeException(e);
         }
 
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        Configuration.browserCapabilities = capabilities;
 
         open("https://market.yandex.ru/");
         getWebDriver().manage().window().maximize();
@@ -64,11 +71,11 @@ public class SearchTests {
     @Test
     public void executeSearch() {
 
-        try {
-            Thread.sleep(1500000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(125000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         mainPageHelper.searchFor("Айфон 15");
         mainPageHelper.searchButtonClick();
         mainPageHelper.clickOnItemByNumberOnPage(1);
