@@ -13,6 +13,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
@@ -28,59 +29,38 @@ public class SearchTests {
     public void siteLogin() {
 
 
-
-
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability("browserVersion", "117.0");
-        options.setCapability("selenoid:options", new HashMap<String, Object>() {{
-            /* How to add test badge */
-            put("name", "Test badge...");
-
-            /* How to set session timeout */
-            put("sessionTimeout", "15m");
-
-            /* How to set timezone */
-            put("env", new ArrayList<String>() {{
-                add("TZ=UTC");
-            }});
-
-            /* How to add "trash" button */
-            put("labels", new HashMap<String, Object>() {{
-                // put("manual", "true");
-            }});
-
-            /* How to enable video recording */
-            put("enableVideo", true);
-            put("enableVNC", true);
-        }});
-        try {
-            RemoteWebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        Configuration.browserCapabilities = capabilities;
+        Configuration.pageLoadTimeout = 180000L;
+        Configuration.baseUrl = "";
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.remote = "http://localhost:4444/wd/hub";
+        Configuration.remoteConnectionTimeout = 180000L;
+        Configuration.browserCapabilities = getDesiredCapabilities("chrome", true);
 
         open("https://market.yandex.ru/");
         getWebDriver().manage().window().maximize();
 
     }
-    @Test
-    public void executeSearch() {
+    private static DesiredCapabilities getDesiredCapabilities(final String browserName, final Boolean enableVideo) {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", new HashMap<String, Object>() {
+            {
+                this.put("enableVNC", true);
+                this.put("enableVideo", enableVideo);
+                this.put("browserName", browserName);
+                this.put("env", Arrays.asList("LANG=ru_RU.UTF-8", "LANGUAGE=ru:ru", "LC_ALL=ru_RU.UTF-8"));
+            }
+        });
+        return capabilities;
+    }
 
-//        try {
-//            Thread.sleep(125000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+    @Test
+    public void executeSearch() throws InterruptedException {
+
         mainPageHelper.searchFor("Айфон 15");
         mainPageHelper.searchButtonClick();
         mainPageHelper.clickOnItemByNumberOnPage(1);
 
-        Configuration.holdBrowserOpen = true;
+        Thread.sleep(3000);
 
     }
 

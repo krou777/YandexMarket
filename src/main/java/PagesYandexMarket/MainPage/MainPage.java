@@ -16,6 +16,8 @@ public class MainPage {
 
     public ElementsCollection itemsOnPageList = $$x("//div[@data-apiary-widget-name='@marketfront/SerpEntity']//child::span[@role='link']");
 
+    public By itemCardTitle = By.xpath("//h1[@data-auto='productCardTitle']");
+
 
 
 

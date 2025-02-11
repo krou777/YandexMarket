@@ -128,8 +128,12 @@
             <version>2.14.0</version>
         </dependency>
 
-
-
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.27.2</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -153,6 +157,11 @@
             <groupId>com.codeborne</groupId>
             <artifactId>selenide-core</artifactId>
             <version>7.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.core5</groupId>
+            <artifactId>httpcore5</artifactId>
+            <version>5.3.1</version>
         </dependency>
 
     </dependencies>
@@ -194,6 +203,14 @@
                 <version>2.7</version>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
 
 
             <plugin>
